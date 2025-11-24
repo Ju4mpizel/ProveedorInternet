@@ -15,6 +15,7 @@ namespace ProveedorInternet
         public FormGestionContratos()
         {
             InitializeComponent();
+            tb_idcontrato.Visible = false;
             CargarDatosEnComboboxes();
             cb_usuario.DropDownStyle = ComboBoxStyle.DropDownList;
             cb_plan.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -209,6 +210,23 @@ namespace ProveedorInternet
                 }
                 // Los errores de SQL se manejan en el DAL
             }
+            LimpiarCamposContratos();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 1. Crear instancia del destino
+            FormGestionPlanes formPlanes = new FormGestionPlanes();
+            formPlanes.StartPosition = FormStartPosition.CenterScreen;
+            // 2. Mostrar el destino
+            formPlanes.Show();
+
+            // 3. Cerrar el formulario actual
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
             LimpiarCamposContratos();
         }
     }

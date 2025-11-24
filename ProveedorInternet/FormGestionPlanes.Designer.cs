@@ -43,6 +43,9 @@
             tb_idplan = new TextBox();
             btn_EliminarPlan = new Button();
             label5 = new Label();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPlanes).BeginInit();
             SuspendLayout();
             // 
@@ -175,11 +178,44 @@
             label5.TabIndex = 35;
             label5.Text = "Sistema Proveedor Internet - Planes";
             // 
+            // button2
+            // 
+            button2.Location = new Point(822, 251);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 23);
+            button2.TabIndex = 36;
+            button2.Text = "> Contratos";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(699, 251);
+            button3.Name = "button3";
+            button3.Size = new Size(117, 23);
+            button3.TabIndex = 37;
+            button3.Text = "< Usuarios";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(264, 251);
+            button4.Name = "button4";
+            button4.Size = new Size(117, 23);
+            button4.TabIndex = 38;
+            button4.Text = "Limpiar Campos";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // FormGestionPlanes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(985, 450);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(button2);
             Controls.Add(label5);
             Controls.Add(btn_EliminarPlan);
             Controls.Add(tb_idplan);
@@ -220,5 +256,8 @@
         private TextBox tb_idplan;
         private Button btn_EliminarPlan;
         private Label label5;
+        private Button button2;
+        private Button button3;
+        private Button button4;
     }
 }

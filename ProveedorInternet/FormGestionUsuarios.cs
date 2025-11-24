@@ -7,6 +7,7 @@ namespace ProveedorInternet
         public FormGestionUsuarios()
         {
             InitializeComponent();
+            tb_idusuario.Visible = false;
             CargarUsuariosEnDataGridView();
         }
 
@@ -163,6 +164,23 @@ namespace ProveedorInternet
         private void btn_visualizarusuarios_Click(object sender, EventArgs e)
         {
             CargarUsuariosEnDataGridView();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // 1. Crear instancia del destino
+            FormGestionPlanes formPlanes = new FormGestionPlanes();
+            formPlanes.StartPosition = FormStartPosition.CenterScreen;
+            // 2. Mostrar el destino
+            formPlanes.Show();
+
+            // 3. Cerrar el formulario actual
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
         }
     }
 }

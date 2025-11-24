@@ -15,6 +15,7 @@ namespace ProveedorInternet
         public FormGestionPlanes()
         {
             InitializeComponent();
+            tb_idplan.Visible = false;
             CargarPlanesEnDataGridView();
         }
         private void FormGestionPlanes_Load(object sender, EventArgs e)
@@ -177,6 +178,35 @@ namespace ProveedorInternet
                     // La excepción 1451 se maneja dentro de PlanDAL.
                 }
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // 1. Crear instancia del destino
+            FormGestionUsuarios formUsuarios = new FormGestionUsuarios();
+            formUsuarios.StartPosition = FormStartPosition.CenterScreen;
+            // 2. Mostrar el destino
+            formUsuarios.Show();
+
+            // 3. Cerrar el formulario actual
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 1. Crear instancia del destino
+            FormGestionContratos formContratos = new FormGestionContratos();
+            formContratos.StartPosition = FormStartPosition.CenterScreen;
+            // 2. Mostrar el destino
+            formContratos.Show();
+
+            // 3. Cerrar el formulario actual
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
         }
     }
 }

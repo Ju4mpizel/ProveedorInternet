@@ -47,6 +47,8 @@
             label4 = new Label();
             tb_email = new TextBox();
             label5 = new Label();
+            button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgv_usuarios).BeginInit();
             SuspendLayout();
             // 
@@ -62,7 +64,7 @@
             // 
             // tb_idusuario
             // 
-            tb_idusuario.Location = new Point(149, 49);
+            tb_idusuario.Location = new Point(149, 52);
             tb_idusuario.Name = "tb_idusuario";
             tb_idusuario.Size = new Size(100, 23);
             tb_idusuario.TabIndex = 26;
@@ -210,11 +212,33 @@
             label5.TabIndex = 34;
             label5.Text = "Sistema Proveedor Internet - Usuarios";
             // 
+            // button1
+            // 
+            button1.Location = new Point(859, 251);
+            button1.Name = "button1";
+            button1.Size = new Size(117, 23);
+            button1.TabIndex = 35;
+            button1.Text = "> Planes";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(268, 251);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 23);
+            button2.TabIndex = 36;
+            button2.Text = "Limpiar Campos";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // FormGestionUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(988, 450);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(tb_email);
@@ -263,5 +287,7 @@
         private Label label4;
         private TextBox tb_email;
         private Label label5;
+        private Button button1;
+        private Button button2;
     }
 }

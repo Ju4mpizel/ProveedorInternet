@@ -45,6 +45,8 @@
             cb_usuario = new ComboBox();
             cb_plan = new ComboBox();
             label4 = new Label();
+            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvContratos).BeginInit();
             SuspendLayout();
             // 
@@ -194,11 +196,33 @@
             label4.TabIndex = 55;
             label4.Text = "Plan";
             // 
+            // button2
+            // 
+            button2.Location = new Point(848, 250);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 23);
+            button2.TabIndex = 57;
+            button2.Text = "< Planes";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(264, 250);
+            button3.Name = "button3";
+            button3.Size = new Size(117, 23);
+            button3.TabIndex = 58;
+            button3.Text = "Limpiar Campos";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // FormGestionContratos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(977, 450);
+            Controls.Add(button3);
+            Controls.Add(button2);
             Controls.Add(cb_plan);
             Controls.Add(label4);
             Controls.Add(cb_usuario);
@@ -243,5 +267,7 @@
         private ComboBox cb_usuario;
         private ComboBox cb_plan;
         private Label label4;
+        private Button button2;
+        private Button button3;
     }
 }
