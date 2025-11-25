@@ -19,8 +19,6 @@ namespace ProveedorInternet
         {
             UsuarioDAL dal = new UsuarioDAL();
             dgv_usuarios.DataSource = dal.ObtenerUsuarios();
-
-            // Configuración visual
             if (dgv_usuarios.Columns.Contains("IdUsuario"))
             {
                 dgv_usuarios.Columns["IdUsuario"].Visible = false;
@@ -29,7 +27,6 @@ namespace ProveedorInternet
 
         private void LimpiarCampos()
         {
-            // Limpia los TextBoxes visibles
             tb_nombre.Text = string.Empty;
             tb_apellido.Text = string.Empty;
             tb_carnet.Text = string.Empty;
@@ -41,15 +38,10 @@ namespace ProveedorInternet
 
         private void dgv_usuarios_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Asegura que el clic no sea en el encabezado
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow fila = dgv_usuarios.Rows[e.RowIndex];
-
-                // CRUCIAL: Cargar el ID al campo oculto para el UPDATE
                 tb_idusuario.Text = fila.Cells["IdUsuario"].Value.ToString();
-
-                // Cargar el resto de campos para edición
                 tb_nombre.Text = fila.Cells["Nombre"].Value.ToString();
                 tb_apellido.Text = fila.Cells["Apellido"].Value.ToString();
                 tb_carnet.Text = fila.Cells["Carnet"].Value.ToString();
@@ -74,17 +66,13 @@ namespace ProveedorInternet
                 MessageBox.Show("Los campos Nombre, Apellido, Carnet y Email son obligatorios.", "Campos Faltantes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // --- 2. DETERMINAR MODO (CREATE o UPDATE) ---
-            // Si el campo oculto tiene un ID, es un UPDATE.
             int.TryParse(tb_idusuario.Text, out idUsuario);
 
             try
             {
-                // 3. Crear el objeto Usuario con los datos del formulario
                 Usuario usuario = new Usuario
                 {
-                    IdUsuario = idUsuario, // Será 0 si es CREATE, o el ID real si es UPDATE
+                    IdUsuario = idUsuario,
                     Nombre = tb_nombre.Text,
                     Apellido = tb_apellido.Text,
                     Carnet = tb_carnet.Text,
@@ -92,20 +80,14 @@ namespace ProveedorInternet
                     Email = tb_email.Text,
                     Direccion = tb_direccion.Text
                 };
-
-                // 4. Lógica de Decisión
                 if (idUsuario == 0)
                 {
-                    // CREATE
                     resultado = dal.GuardarUsuario(usuario);
                 }
                 else
                 {
-                    // UPDATE
                     resultado = dal.ActualizarUsuario(usuario);
                 }
-
-                // 5. Manejar el resultado
                 if (resultado > 0)
                 {
                     MessageBox.Show((idUsuario == 0 ? "Usuario guardado" : "Usuario actualizado") + " exitosamente.", "Éxito");
@@ -114,10 +96,8 @@ namespace ProveedorInternet
                 }
                 else if (idUsuario != 0 && resultado == 0)
                 {
-                    // Caso de UPDATE que no afectó filas (ej: el usuario no existía o no se cambió nada)
                     MessageBox.Show("La operación no modificó ningún registro, verifique si los datos son iguales o si ocurrió un error.", "Advertencia");
                 }
-                // Los errores de SQL y duplicidad (1062) se manejan dentro de UsuarioDAL
             }
             catch (Exception ex)
             {
@@ -127,18 +107,13 @@ namespace ProveedorInternet
 
         private void btn_eliminar_Click(object sender, EventArgs e)
         {
-            // 1. Obtener el ID del TextBox oculto
             int idUsuarioAEliminar = 0;
             int.TryParse(tb_idusuario.Text, out idUsuarioAEliminar);
-
-            // Verificación de selección
             if (idUsuarioAEliminar == 0)
             {
                 MessageBox.Show("Debe seleccionar un usuario de la tabla para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 2. Mensaje de Confirmación
             DialogResult confirmacion = MessageBox.Show(
                 $"¿Está seguro de que desea eliminar al usuario con ID {idUsuarioAEliminar}?",
                 "Confirmar Eliminación",
@@ -154,10 +129,9 @@ namespace ProveedorInternet
                 if (resultado > 0)
                 {
                     MessageBox.Show("Usuario eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarUsuariosEnDataGridView(); // Refrescar la tabla
-                    LimpiarCampos();             // Limpiar TextBoxes
+                    CargarUsuariosEnDataGridView(); 
+                    LimpiarCampos();            
                 }
-                // Los errores de restricción (ej. 1451) se manejan en UsuarioDAL
             }
         }
 
@@ -168,13 +142,9 @@ namespace ProveedorInternet
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // 1. Crear instancia del destino
             FormGestionPlanes formPlanes = new FormGestionPlanes();
             formPlanes.StartPosition = FormStartPosition.CenterScreen;
-            // 2. Mostrar el destino
             formPlanes.Show();
-
-            // 3. Cerrar el formulario actual
             this.Hide();
         }
 

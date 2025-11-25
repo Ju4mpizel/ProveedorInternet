@@ -10,14 +10,9 @@ namespace ProveedorInternet
     public class UsuarioDAL
     {
         private ClaseConexion dbConexion = new ClaseConexion();
-
-        // ----------------------------------------------------
-        // OPERACIÓN: READ (Listar todos los usuarios)
-        // ----------------------------------------------------
         public List<Usuario> ObtenerUsuarios()
         {
             List<Usuario> lista = new List<Usuario>();
-            // Seleccionamos todos los campos de la tabla usuarios
             string sql = "SELECT id_usuario, nombre, apellido, carnet, telefono, email, direccion FROM usuarios";
 
             MySqlConnection conexion = dbConexion.AbrirConexion();
@@ -34,7 +29,6 @@ namespace ProveedorInternet
                 {
                     Usuario u = new Usuario
                     {
-                        // Mapeo de datos usando el reader
                         IdUsuario = reader.GetInt32("id_usuario"),
                         Nombre = reader.GetString("nombre"),
                         Apellido = reader.GetString("apellido"),
@@ -57,13 +51,10 @@ namespace ProveedorInternet
             }
             return lista;
         }
-
-        // Aquí agregaremos los métodos CREATE, UPDATE y DELETE
         public int GuardarUsuario(Usuario usuario)
         {
             int filasAfectadas = 0;
 
-            // Consulta SQL. Se insertan todos los campos excepto el ID.
             string sql = "INSERT INTO usuarios (nombre, apellido, carnet, telefono, email, direccion) " +
                          "VALUES (@nombre, @apellido, @carnet, @telefono, @email, @direccion)";
 
@@ -73,8 +64,6 @@ namespace ProveedorInternet
             try
             {
                 MySqlCommand comando = new MySqlCommand(sql, conexion);
-
-                // Asignación de Parámetros (desde el objeto Usuario)
                 comando.Parameters.AddWithValue("@nombre", usuario.Nombre);
                 comando.Parameters.AddWithValue("@apellido", usuario.Apellido);
                 comando.Parameters.AddWithValue("@carnet", usuario.Carnet);
@@ -86,8 +75,7 @@ namespace ProveedorInternet
             }
             catch (MySqlException ex)
             {
-                // ⚠️ Manejo de Error: Clave Única (Carnet/Email)
-                if (ex.Number == 1062) // Código de error de MySQL para entrada duplicada
+                if (ex.Number == 1062)
                 {
                     MessageBox.Show("Error: El Carnet o el Email ingresado ya existe en la base de datos.", "Dato Duplicado");
                 }
@@ -108,7 +96,6 @@ namespace ProveedorInternet
         {
             int filasAfectadas = 0;
 
-            // La clave es el WHERE id_usuario=@id.
             string sql = "UPDATE usuarios SET nombre = @nombre, apellido = @apellido, carnet = @carnet, " +
                          "telefono = @telefono, email = @email, direccion = @direccion WHERE id_usuario = @id";
 
@@ -118,15 +105,13 @@ namespace ProveedorInternet
             try
             {
                 MySqlCommand comando = new MySqlCommand(sql, conexion);
-
-                // Asignación de Parámetros
                 comando.Parameters.AddWithValue("@nombre", usuario.Nombre);
                 comando.Parameters.AddWithValue("@apellido", usuario.Apellido);
                 comando.Parameters.AddWithValue("@carnet", usuario.Carnet);
                 comando.Parameters.AddWithValue("@telefono", usuario.Telefono);
                 comando.Parameters.AddWithValue("@email", usuario.Email);
                 comando.Parameters.AddWithValue("@direccion", usuario.Direccion);
-                comando.Parameters.AddWithValue("@id", usuario.IdUsuario); // ¡El ID es crucial para el WHERE!
+                comando.Parameters.AddWithValue("@id", usuario.IdUsuario);
 
                 filasAfectadas = comando.ExecuteNonQuery();
             }
@@ -167,8 +152,7 @@ namespace ProveedorInternet
             }
             catch (MySqlException ex)
             {
-                // ⚠️ Manejo de Error: Clave Foránea (Contratos)
-                if (ex.Number == 1451) // Código de error de MySQL para restricción de clave foránea
+                if (ex.Number == 1451)
                 {
                     MessageBox.Show("No se puede eliminar este usuario porque tiene contratos activos o históricos registrados.", "Restricción de Integridad");
                 }
